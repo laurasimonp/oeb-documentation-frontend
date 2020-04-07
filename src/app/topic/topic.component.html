@@ -1,0 +1,13 @@
+<div class="container well">
+    <label>TOPICS</label>
+    <table class="table table-striped">
+        <tr>
+            <th>Topic name</th>
+            <th>Topic description</th>
+        </tr>
+        <tr *ngFor="let topic of topics">
+            <td>{{ topic.name }}</td>
+            <td>{{ topic.description }}</td>
+        </tr>
+    </table>
+</div>

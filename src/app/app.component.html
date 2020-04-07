@@ -1,8 +1,11 @@
 <div class="container well">
   <nav>
-      <a routerLink="/oeb">OpenEBench</a> --- 
-      <a routerLink="/scientific">Scientific Benchmarking</a> --- 
-      <a routerLink="/technical">Technical Monitoring</a>
-  </nav><br>
+      <a routerLink="/oeb" routerLinkActive="active">OpenEBench</a> | 
+      <a routerLink="/scientific" routerLinkActive="active">Scientific Benchmarking</a> | 
+      <a routerLink="/technical" routerLinkActive="active">Technical Monitoring</a> | 
+      <a routerLink="/topics" routerLinkActive="active">Topics</a> | 
+      <a routerLink="/repositories" routerLinkActive="active">Repositories</a>
+  </nav>
+  <br>
   <router-outlet></router-outlet>
 </div>

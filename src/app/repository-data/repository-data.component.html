@@ -1,0 +1,20 @@
+<div class="container well">
+    <label>REPOSITORY DATA</label>
+    <table class="table table-striped">
+        <tr>
+            <th>Repository name</th>
+            <th>Repository topics</th>
+            <th>Repository owner</th>
+            <th>Repository contributors</th>
+        </tr>
+        <tr>
+            <td>{{ repo.name }}</td>
+            <td>{{ repo.topics }}</td>
+            <td>{{ repo.owner }}</td>
+            <td>{{ repo.contributors }}</td>
+        </tr>
+    </table>
+    <br>
+    <label>README</label>
+    {{ repo.readme }}
+</div>

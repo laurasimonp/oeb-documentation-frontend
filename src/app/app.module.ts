@@ -1,21 +1,19 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
-import { RouterModule, Routes } from '@angular/router';
+import { Router } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 import { AppComponent } from './app.component';
 import { ScientificComponent } from './scientific/scientific.component';
 import { TechnicalComponent } from './technical/technical.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { OebComponent } from './oeb/oeb.component';
-
-const appRoutes: Routes = [
-  { path: 'oeb', component: OebComponent},
-  { path: 'scientific', component: ScientificComponent},
-  { path: 'technical', component: TechnicalComponent},
-  { path: '', redirectTo: '/oeb', pathMatch: 'full'},
-  { path: '**', component: PageNotFoundComponent }
-]
+import { TopicComponent } from './topic/topic.component';
+import { RepositoryComponent } from './repository/repository.component';
+import { RepositoryDataComponent } from './repository-data/repository-data.component';
 
 @NgModule({
   declarations: [
@@ -23,16 +21,21 @@ const appRoutes: Routes = [
     ScientificComponent,
     TechnicalComponent,
     PageNotFoundComponent,
-    OebComponent
+    OebComponent,
+    TopicComponent,
+    RepositoryComponent,
+    RepositoryDataComponent
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     AppRoutingModule,
-    RouterModule.forRoot(
-      appRoutes, { enableTracing: false }
-    )
+    HttpClientModule,
+    NgxPaginationModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(router: Router) { }
+}
