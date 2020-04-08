@@ -18,11 +18,11 @@ export class RepositoryDataComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.repo.owner = "inab";
     if (!this.repo) {
       this.http.get<Repository>('http://localhost:8080/github-docs-backend/repository/openEBench_vre').subscribe(data => {
         this.repo = data;
       });
     }
-    this.repo.owner = "inab";
   }
 }

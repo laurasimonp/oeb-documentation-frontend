@@ -21,7 +21,7 @@ export class RepositoryComponent implements OnInit {
   repoSelected: Repository;
 
   //filter properties
-  topicFilter: any;
+  topicFilter: Topic;
 
   //pagination properties
   currentPage: number;
@@ -36,11 +36,11 @@ export class RepositoryComponent implements OnInit {
     this.http.get<Topic[]>('http://localhost:8080/github-docs-backend/topics').subscribe(data => {
       this.topics = data;
     });
-    this.http.get<Repository[]>('http://localhost:8080/github-docs-backend/repositories?t=openebench&t=inab').subscribe(data => {
+    this.http.get<Repository[]>('http://localhost:8080/github-docs-backend/repositories?t=openebench').subscribe(data => {
       this.repos = data;
+      this.reposFiltered = data;
     });
     
-    this.reposFiltered = this.repos;
     this.itemsPerPage = 10;
     this.currentPage = 1;
   }
@@ -48,9 +48,12 @@ export class RepositoryComponent implements OnInit {
   filter() {
     this.reposFiltered = this.repos.filter(repo => {
       let topicValid: boolean = false;
-
-      topicValid = (repo.topics <= this.topicFilter);
-
+      for (let repo of this.repos) {
+        for (let topic of repo.topics) {
+          topicValid = (topic.name <= this.topicFilter.name);
+        }
+      }
+      
       return topicValid;
     })
   }
