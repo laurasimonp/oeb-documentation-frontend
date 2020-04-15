@@ -1,13 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+import { OebComponent } from './oeb/oeb.component';
 import { ScientificComponent } from './scientific/scientific.component';
 import { TechnicalComponent } from './technical/technical.component';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { OebComponent } from './oeb/oeb.component';
 import { TopicComponent } from './topic/topic.component';
 import { RepositoryComponent } from './repository/repository.component';
-
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 const appRoutes: Routes = [
   { path: 'oeb', component: OebComponent },
@@ -20,8 +19,11 @@ const appRoutes: Routes = [
 ]
 
 @NgModule({
-  imports: [RouterModule.forRoot(appRoutes, { enableTracing: false })],
-  exports: [RouterModule]
+  imports: [
+    RouterModule.forRoot(appRoutes, { enableTracing: false }),
+  ],
+  exports: [
+    RouterModule
+  ]
 })
-
-export class AppRoutingModule { }
+export class AppRoutingModule {}
