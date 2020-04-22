@@ -54,7 +54,7 @@
                  }">
                     <td>{{ repo.name }}</td>
                     <td>
-                        <span *ngFor="let topic of repo.topics">{{ topic.name }}, </span>
+                        <span *ngFor="let topic of repo.topics">{{ topic }}, </span>
                     </td>
                     <td>
                         <button class="btn btn-primary" (click)="onClick(repo)">View

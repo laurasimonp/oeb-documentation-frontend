@@ -2,7 +2,7 @@ import { Topic } from './Topic';
 
 export class Repository {
     private _name: string;
-    private _topics: Topic[];
+    private _topics: string[];
     private _owner: string;
     private _contributors: string[];
     private _readme: any;
@@ -10,13 +10,13 @@ export class Repository {
 	/**
      *Creates an instance of Repository.
      * @param {string} name
-     * @param {Topic[]} topics
+     * @param {string[]} topics
      * @param {string} owner
      * @param {string[]} contributors
      * @param {*} readme
      * @memberof Repository
      */
-    constructor(name?: string, topics?: Topic[], owner?: string, contributors?: string[], readme?: any) {
+    constructor(name?: string, topics?: string[], owner?: string, contributors?: string[], readme?: any) {
 		this._name = name;
 		this._topics = topics;
 		this._owner = owner;
@@ -34,9 +34,9 @@ export class Repository {
 
     /**
      * Getter topics
-     * @return {Topic[]}
+     * @return {string[]}
      */
-	public get topics(): Topic[] {
+	public get topics(): string[] {
 		return this._topics;
 	}
 
@@ -74,9 +74,9 @@ export class Repository {
 
     /**
      * Setter topics
-     * @param {Topic[]} value
+     * @param {string[]} value
      */
-	public set topics(value: Topic[]) {
+	public set topics(value: string[]) {
 		this._topics = value;
 	}
 

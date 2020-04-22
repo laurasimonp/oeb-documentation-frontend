@@ -15,7 +15,7 @@ import { Topic } from '../model/Topic';
 export class RepositoryComponent implements OnInit {
 
   //attributes
-  topics: Topic[] = [];
+  topics: string[] = [];
   repos: Repository[] = [];
   reposFiltered: Repository[] = [];
   repoSelected: Repository;
@@ -33,7 +33,7 @@ export class RepositoryComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.http.get<Topic[]>('http://localhost:8080/github-docs-backend/topics').subscribe(data => {
+    this.http.get<string[]>('http://localhost:8080/github-docs-backend/topics').subscribe(data => {
       this.topics = data;
     });
     this.http.get<Repository[]>('http://localhost:8080/github-docs-backend/repositories?t=openebench').subscribe(data => {
@@ -50,7 +50,7 @@ export class RepositoryComponent implements OnInit {
       let topicValid: boolean = false;
       for (let repo of this.repos) {
         for (let topic of repo.topics) {
-          topicValid = (topic.name <= this.topicFilter.name);
+          topicValid = (topic <= this.topicFilter.name);
         }
       }
       
