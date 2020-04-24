@@ -22,6 +22,7 @@ export class RepositoryComponent implements OnInit {
 
   //filter properties
   topicFilter: Topic;
+  expanded: boolean = false;
 
   //pagination properties
   currentPage: number;
@@ -40,7 +41,7 @@ export class RepositoryComponent implements OnInit {
       this.repos = data;
       this.reposFiltered = data;
     });
-    
+
     this.itemsPerPage = 10;
     this.currentPage = 1;
   }
@@ -53,12 +54,23 @@ export class RepositoryComponent implements OnInit {
           topicValid = (topic <= this.topicFilter.name);
         }
       }
-      
+
       return topicValid;
     })
   }
 
   onClick(repo: Repository) {
     this.repoSelected = repo;
+  }
+
+  showCheckboxes() {
+    let checkboxes = document.getElementById("checkboxes");
+    if (!this.expanded) {
+      checkboxes.style.display = "block";
+      this.expanded = true;
+    } else {
+      checkboxes.style.display = "none";
+      this.expanded = false;
+    }
   }
 }

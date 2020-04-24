@@ -1,18 +1,34 @@
-<div class="container well">
-    <label>REPOSITORIES</label>
+<div class="container">
     <form #reposFilterForm="ngForm" novalidate>
+        <b>FILTERS</b>
         <table class="table table-striped">
             <tr>
-                <td>Filter by topic</td>
                 <td>
-                    <span *ngFor="let topic of topics" [(ngModel)]="topicFilter" name="topicFilter"
-                        (ngModelChange)="filter()">
-                        <input type="checkbox">
-                        <label>&nbsp;{{ topic.name }}</label>
-                        <br>
-                    </span>
+                    <div class="multiselect">
+                        <div class="selectBox" (click)="showCheckboxes()">
+                            <select class="form-control">
+                                <option>Filter by topic</option>
+                            </select>
+                            <div class="overSelect"></div>
+                        </div>
+                        <div id="checkboxes">
+                            <span *ngFor="let topic of topics" [(ngModel)]="topicFilter" name="topicFilter"
+                                (ngModelChange)="filter()">
+                                <input type="checkbox">&nbsp;{{ topic.name }}
+                                <br>
+                            </span>
+                        </div>
+                    </div>
                 </td>
             </tr>
+        </table>
+    </form>
+</div>
+
+<div class="container">
+    <form #reposManagementForm="ngForm" novalidate>
+        <b>PAGINATION</b>
+        <table class="table table-striped">
             <tr>
                 <td>
                     Current Page
@@ -32,19 +48,22 @@
                 <td>{{ reposFiltered.length }}</td>
             </tr>
         </table>
-    </form>
-</div>
-<div>
 
-</div>
-<div class="container well">
-    <form #reposManagementForm="ngForm" novalidate>
+        <pagination-controls (pageChange)="currentPage=$event" maxSize="5" directionLinks="true" autoHide="true">
+        </pagination-controls>
+        <br>
+
+        <b>REPOSITORIES</b>
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>Repository name</th>
-                    <th>Repository topics</th>
-                    <th>Repository data</th>
+                    <th>Name</th>
+                    <th>Topics</th>
+                    <th>Description</th>
+                    <th>Website</th>
+                    <th>Owner</th>
+                    <th>Contributors</th>
+                    <th>Readme</th>
                 </tr>
             </thead>
             <tbody>
@@ -56,17 +75,23 @@
                     <td>
                         <span *ngFor="let topic of repo.topics">{{ topic }}, </span>
                     </td>
-                    <td>
+                    <td>description</td>
+                    <td><a href="{{ repo.url }}">website</a></td>
+                    <td>{{ repo.owner }}</td>
+                    <td>contributors</td>
+                    <td>{{ repo.readme }}</td>
+                    <!--<td>
                         <button class="btn btn-primary" (click)="onClick(repo)">View
                         </button>
-                    </td>
+                    </td>-->
                 </tr>
             </tbody>
         </table>
+
         <pagination-controls (pageChange)="currentPage=$event" maxSize="5" directionLinks="true" autoHide="true">
         </pagination-controls>
     </form>
 </div>
 
-<app-repository-data *ngIf="repoSelected" [repo]="repoSelected">
-</app-repository-data>
+<!--<app-repository-data *ngIf="repoSelected" [repo]="repoSelected">
+</app-repository-data>-->
