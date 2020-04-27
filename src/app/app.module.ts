@@ -14,6 +14,7 @@ import { TopicComponent } from './topic/topic.component';
 import { RepositoryComponent } from './repository/repository.component';
 import { RepositoryDataComponent } from './repository-data/repository-data.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { MarkedPipe } from './marked.pipe';
 
 @NgModule({
   imports: [
@@ -31,7 +32,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     TopicComponent,
     RepositoryComponent,
     RepositoryDataComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    MarkedPipe
   ],
   providers: [],
   bootstrap: [AppComponent]

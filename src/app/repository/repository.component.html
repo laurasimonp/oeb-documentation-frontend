@@ -79,7 +79,7 @@
                     <td><a href="{{ repo.url }}">website</a></td>
                     <td>{{ repo.owner }}</td>
                     <td>contributors</td>
-                    <td>{{ repo.readme }}</td>
+                    <td>{{ repo.readme|marked }}</td>
                     <!--<td>
                         <button class="btn btn-primary" (click)="onClick(repo)">View
                         </button>
