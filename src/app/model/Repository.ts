@@ -1,34 +1,48 @@
 import { Topic } from './Topic';
 
 export class Repository {
+    private _id: string;
     private _name: string;
     private _topics: string[];
     private _description: string;
     private _url: string;
-    private _owner: string;
     private _contributors: string[];
+    private _languages: string[];
+    private _license: string;
     private _readme: any;
 
 	/**
      *Creates an instance of Repository.
+     * @param {string} [id]
      * @param {string} [name]
      * @param {string[]} [topics]
      * @param {string} [description]
      * @param {string} [url]
-     * @param {string} [owner]
      * @param {string[]} [contributors]
+     * @param {string[]} [languages]
+     * @param {string} [license]
      * @param {*} [readme]
      * @memberof Repository
      */
-    constructor(name?: string, topics?: string[], description?: string, url?: string, owner?: string, contributors?: string[], readme?: any) {
+    constructor(id?: string, name?: string, topics?: string[], description?: string, url?: string, contributors?: string[], languages?: string[], license?: string, readme?: any) {
+		this._id = id;
 		this._name = name;
 		this._topics = topics;
 		this._description = description;
 		this._url = url;
-		this._owner = owner;
 		this._contributors = contributors;
+		this._languages = languages;
+		this._license = license;
 		this._readme = readme;
-    }
+	}
+
+    /**
+     * Getter id
+     * @return {string}
+     */
+	public get id(): string {
+		return this._id;
+	}
 
     /**
      * Getter name
@@ -63,14 +77,6 @@ export class Repository {
 	}
 
     /**
-     * Getter owner
-     * @return {string}
-     */
-	public get owner(): string {
-		return this._owner;
-	}
-
-    /**
      * Getter contributors
      * @return {string[]}
      */
@@ -79,11 +85,35 @@ export class Repository {
 	}
 
     /**
+     * Getter languages
+     * @return {string[]}
+     */
+	public get languages(): string[] {
+		return this._languages;
+	}
+
+    /**
+     * Getter license
+     * @return {string}
+     */
+	public get license(): string {
+		return this._license;
+	}
+
+    /**
      * Getter readme
      * @return {any}
      */
 	public get readme(): any {
 		return this._readme;
+	}
+
+    /**
+     * Setter id
+     * @param {string} value
+     */
+	public set id(value: string) {
+		this._id = value;
 	}
 
     /**
@@ -119,19 +149,27 @@ export class Repository {
 	}
 
     /**
-     * Setter owner
-     * @param {string} value
-     */
-	public set owner(value: string) {
-		this._owner = value;
-	}
-
-    /**
      * Setter contributors
      * @param {string[]} value
      */
 	public set contributors(value: string[]) {
 		this._contributors = value;
+	}
+
+    /**
+     * Setter languages
+     * @param {string[]} value
+     */
+	public set languages(value: string[]) {
+		this._languages = value;
+	}
+
+    /**
+     * Setter license
+     * @param {string} value
+     */
+	public set license(value: string) {
+		this._license = value;
 	}
 
     /**

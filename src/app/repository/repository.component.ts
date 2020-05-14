@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
 
 import { Repository } from '../model/Repository';
 import { Topic } from '../model/Topic';
@@ -28,16 +25,13 @@ export class RepositoryComponent implements OnInit {
   currentPage: number;
   itemsPerPage: number;
 
-  constructor(
-    private http: HttpClient,
-    private route: ActivatedRoute
-  ) { }
+  constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
     this.http.get<string[]>('http://localhost:8080/github-docs-backend/topics').subscribe(data => {
       this.topics = data;
     });
-    this.http.get<Repository[]>('http://localhost:8080/github-docs-backend/repositories?t=openebench').subscribe(data => {
+    this.http.get<Repository[]>('http://localhost:8080/github-docs-backend/repositories').subscribe(data => {
       this.repos = data;
       this.reposFiltered = data;
     });

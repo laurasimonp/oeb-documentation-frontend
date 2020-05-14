@@ -1,20 +1,26 @@
-<div class="container well">
-    <label>REPOSITORY DATA</label>
+<div class="container">
     <table class="table table-striped">
         <tr>
-            <th>Repository name</th>
-            <th>Repository topics</th>
-            <th>Repository owner</th>
-            <th>Repository contributors</th>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Topics</th>
+            <th>Description</th>
+            <th>Contributors</th>
+            <th>Languages</th>
+            <th>License</th>
+            <th>Website</th>
+            <th>Readme</th>
         </tr>
         <tr>
+            <td>{{ repo.id }}</td>
             <td>{{ repo.name }}</td>
             <td><span *ngFor="let topic of repo.topics">{{ topic }}, </span></td>
-            <td>{{ repo.owner }}</td>
-            <td>{{ repo.contributors }}</td>
+            <td>{{ repo.description }}</td>
+            <td><span *ngFor="let cont of conts">{{ cont.login }}, </span></td>
+            <td><span *ngFor="let language of repo.languages">{{ language }}, </span></td>
+            <td>{{ repo.license }}</td>
+            <td><a href="{{ repo.url }}">website</a></td>
+            <td [innerHTML]="repo.readme|marked"></td>
         </tr>
     </table>
-    <br>
-    <label>README</label>
-    {{ repo.readme }}
 </div>

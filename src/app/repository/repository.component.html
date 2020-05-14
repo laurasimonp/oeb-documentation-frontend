@@ -6,15 +6,16 @@
                 <td>
                     <div class="multiselect">
                         <div class="selectBox" (click)="showCheckboxes()">
+
                             <select class="form-control">
                                 <option>Filter by topic</option>
                             </select>
                             <div class="overSelect"></div>
                         </div>
                         <div id="checkboxes">
-                            <span *ngFor="let topic of topics" [(ngModel)]="topicFilter" name="topicFilter"
+                            <span *ngFor="let topic of topics, let i=index" [(ngModel)]="topicFilter" name="topicFilter"
                                 (ngModelChange)="filter()">
-                                <input type="checkbox">&nbsp;{{ topic.name }}
+                                <input type="checkbox" id="{{i}}">&nbsp;{{ topic.name }}
                                 <br>
                             </span>
                         </div>
@@ -61,9 +62,7 @@
                     <th>Topics</th>
                     <th>Description</th>
                     <th>Website</th>
-                    <th>Owner</th>
-                    <th>Contributors</th>
-                    <th>Readme</th>
+                    <th>Go to</th>
                 </tr>
             </thead>
             <tbody>
@@ -75,11 +74,11 @@
                     <td>
                         <span *ngFor="let topic of repo.topics">{{ topic }}, </span>
                     </td>
-                    <td>description</td>
+                    <td>{{ repo.description }}</td>
                     <td><a href="{{ repo.url }}">website</a></td>
-                    <td>{{ repo.owner }}</td>
-                    <td>contributors</td>
-                    <td>{{ repo.readme|marked }}</td>
+                    <td>
+                        <button class="btn btn-primary">Repository data</button>
+                    </td>
                     <!--<td>
                         <button class="btn btn-primary" (click)="onClick(repo)">View
                         </button>
