@@ -31,11 +31,11 @@ export class RepositoryComponent implements OnInit {
     this.http.get<string[]>('http://localhost:8080/github-docs-backend/topics').subscribe(data => {
       this.topics = data;
     });
-    this.http.get<Repository[]>('http://localhost:8080/github-docs-backend/repositories').subscribe(data => {
+    this.http.get<Repository[]>('http://localhost:8080/github-docs-backend/repos').subscribe(data => {
       this.repos = data;
       this.reposFiltered = data;
     });
-
+    
     this.itemsPerPage = 10;
     this.currentPage = 1;
   }

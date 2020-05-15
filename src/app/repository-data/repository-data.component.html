@@ -19,8 +19,10 @@
             <td><span *ngFor="let cont of conts">{{ cont.login }}, </span></td>
             <td><span *ngFor="let language of repo.languages">{{ language }}, </span></td>
             <td>{{ repo.license }}</td>
-            <td><a href="{{ repo.url }}">website</a></td>
-            <td [innerHTML]="repo.readme|marked"></td>
+            <td><a href="{{ repo.url }}" target="_blank">website</a></td>
+            <td [innerHTML]="repo.readme|marked">
+                <button formtarget="_blank">Readme.md</button>
+            </td>
         </tr>
     </table>
 </div>

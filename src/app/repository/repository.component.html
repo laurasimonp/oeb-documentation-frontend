@@ -62,7 +62,7 @@
                     <th>Topics</th>
                     <th>Description</th>
                     <th>Website</th>
-                    <th>Go to</th>
+                    <th>Repository data</th>
                 </tr>
             </thead>
             <tbody>
@@ -75,14 +75,10 @@
                         <span *ngFor="let topic of repo.topics">{{ topic }}, </span>
                     </td>
                     <td>{{ repo.description }}</td>
-                    <td><a href="{{ repo.url }}">website</a></td>
+                    <td><a href="{{ repo.url }}" target="_blank">website</a></td>
                     <td>
-                        <button class="btn btn-primary">Repository data</button>
+                        <button class="btn btn-primary" (click)="onClick(repo)">View</button>
                     </td>
-                    <!--<td>
-                        <button class="btn btn-primary" (click)="onClick(repo)">View
-                        </button>
-                    </td>-->
                 </tr>
             </tbody>
         </table>
@@ -92,5 +88,5 @@
     </form>
 </div>
 
-<!--<app-repository-data *ngIf="repoSelected" [repo]="repoSelected">
-</app-repository-data>-->
+<app-repository-data *ngIf="repoSelected" [repo]="repoSelected">
+</app-repository-data>
