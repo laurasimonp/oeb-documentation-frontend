@@ -10,7 +10,7 @@ export class Repository {
     private _contributors: Contributor[];
     private _languages: string[];
     private _license: string;
-    private _readme: any;
+    private _readme: string;
 
 	/**
      *Creates an instance of Repository.
@@ -22,10 +22,10 @@ export class Repository {
      * @param {Contributor[]} contributors
      * @param {string[]} languages
      * @param {string} license
-     * @param {*} readme
+     * @param {string} readme
      * @memberof Repository
      */
-    constructor(id?: string, name?: string, topics?: string[], description?: string, url?: string, contributors?: Contributor[], languages?: string[], license?: string, readme?: any) {
+    constructor(id?: string, name?: string, topics?: string[], description?: string, url?: string, contributors?: Contributor[], languages?: string[], license?: string, readme?: string) {
         this._id = id;
         this._name = name;
         this._topics = topics;
@@ -103,9 +103,9 @@ export class Repository {
 
     /**
      * Getter readme
-     * @return {any}
+     * @return {string}
      */
-    public get readme(): any {
+    public get readme(): string {
         return this._readme;
     }
 
@@ -175,9 +175,9 @@ export class Repository {
 
     /**
      * Setter readme
-     * @param {any} value
+     * @param {string} value
      */
-    public set readme(value: any) {
+    public set readme(value: string) {
         this._readme = value;
     }
 }
