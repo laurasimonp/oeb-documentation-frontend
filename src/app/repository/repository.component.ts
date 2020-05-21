@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ɵɵresolveBody } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { Repository } from '../model/Repository';
@@ -18,7 +18,7 @@ export class RepositoryComponent implements OnInit {
   repoSelected: Repository;
 
   //filter properties
-  topicFilter: Topic;
+  topicFilter: string;
   expanded: boolean = false;
 
   //pagination properties
@@ -33,28 +33,11 @@ export class RepositoryComponent implements OnInit {
     });
     this.http.get<Repository[]>('http://localhost:8080/github-docs-backend/repos').subscribe(data => {
       this.repos = data;
-      this.reposFiltered = data;
+      this.reposFiltered = this.repos;
     });
-    
+
     this.itemsPerPage = 10;
     this.currentPage = 1;
-  }
-
-  filter() {
-    this.reposFiltered = this.repos.filter(repo => {
-      let topicValid: boolean = false;
-      for (let repo of this.repos) {
-        for (let topic of repo.topics) {
-          topicValid = (topic <= this.topicFilter.name);
-        }
-      }
-
-      return topicValid;
-    })
-  }
-
-  onClick(repo: Repository) {
-    this.repoSelected = repo;
   }
 
   showCheckboxes() {
@@ -65,6 +48,48 @@ export class RepositoryComponent implements OnInit {
     } else {
       checkboxes.style.display = "none";
       this.expanded = false;
+    }
+  }
+
+  filter() {
+    this.reposFiltered = this.repos.filter(repo => {
+      let topicValid: boolean = false;
+      for (let topic of repo.topics) {
+        if (this.topicFilter) {
+          if (topic.toLowerCase().indexOf(this.topicFilter.toLowerCase()) != -1) {
+            topicValid = true;
+          }
+        } else {
+          topicValid = true;
+        }
+      }
+
+      return topicValid;
+    })
+  }
+
+  filter2(): Repository[] {
+    for (let topic of this.topics) {
+      for (let repo of this.repos) {
+        for (let topicRepo of repo.topics) {
+          if(topic.toLowerCase() == topicRepo.toLowerCase()) {
+            this.reposFiltered = this.repos;
+          }
+        }
+      }
+    }
+    return this.reposFiltered;
+  }
+
+  onClick(repo: Repository) {
+    this.repoSelected = repo;
+  }
+
+  generateHtmlFromReadme(){
+    let html: HTMLElement;
+    let body = html.getElementsByTagName("body");
+    for (let repo of this.repos) {
+      repo.readme = "";
     }
   }
 }
