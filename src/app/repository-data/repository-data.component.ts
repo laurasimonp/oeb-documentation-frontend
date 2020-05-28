@@ -16,10 +16,6 @@ export class RepositoryDataComponent implements OnInit {
   constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
-    if (!this.repo) {
-      this.http.get<Repository>('http://localhost:8080/github-docs-backend/repository/benchmarking-data-model').subscribe(data => {
-        this.repo = data;
-      });
-    }
+
   }
 }

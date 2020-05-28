@@ -31,7 +31,7 @@ export class RepositoryComponent implements OnInit {
     this.http.get<string[]>('http://localhost:8080/github-docs-backend/topics').subscribe(data => {
       this.topics = data;
     });
-    this.http.get<Repository[]>('http://localhost:8080/github-docs-backend/repos').subscribe(data => {
+    this.http.get<Repository[]>('http://localhost:8080/github-docs-backend/repositories').subscribe(data => {
       this.repos = data;
       this.reposFiltered = this.repos;
     });
@@ -72,7 +72,7 @@ export class RepositoryComponent implements OnInit {
     for (let topic of this.topics) {
       for (let repo of this.repos) {
         for (let topicRepo of repo.topics) {
-          if(topic.toLowerCase() == topicRepo.toLowerCase()) {
+          if (topic.toLowerCase() == topicRepo.toLowerCase()) {
             this.reposFiltered = this.repos;
           }
         }
@@ -81,11 +81,21 @@ export class RepositoryComponent implements OnInit {
     return this.reposFiltered;
   }
 
-  onClick(repo: Repository) {
-    this.repoSelected = repo;
+  filter3() {
+    for (let topic of this.topics) {
+      this.http.get<Repository[]>('http://localhost:8080/github-docs-backend/repositories?t=' + topic).subscribe(data => {
+        this.reposFiltered = data;
+      });
+    }
   }
 
-  generateHtmlFromReadme(){
+  viewRepo(repo: Repository) {
+    this.http.get<Repository>('http://localhost:8080/github-docs-backend/repository/' + repo.name).subscribe(data => {
+      this.repoSelected = data;
+    });
+  }
+
+  generateHtmlFromReadme() {
     let html: HTMLElement;
     let body = html.getElementsByTagName("body");
     for (let repo of this.repos) {

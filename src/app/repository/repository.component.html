@@ -13,7 +13,7 @@
                             <div class="overSelect"></div>
                         </div>
                         <div id="checkboxes">
-                            <span *ngFor="let topic of topics, let i=index" [(ngModel)]="topicFilter" name="topicFilter" (ngModelChange)="filter()">
+                            <span *ngFor="let topic of topics, let i=index" [(ngModel)]="topicFilter" name="topicFilter"> <!-- (ngModelChange)="filter()" -->
                                 <input type="checkbox" id="{{i}}">&nbsp;{{ topic.name }}
                                 <br>
                             </span>
@@ -21,7 +21,7 @@
                     </div>
                 </td>
                 <td>
-                    <button class="btn btn-primary" (click)="filter2()">Filter</button>
+                    <button class="btn btn-primary" (click)="filter3()">Filter</button>
                 </td>
             </tr>
         </table>
@@ -79,7 +79,7 @@
                     <td>{{ repo.description }}</td>
                     <td><a href="{{ repo.url }}" target="_blank">website</a></td>
                     <td>
-                        <button class="btn btn-primary" (click)="onClick(repo)">View</button>
+                        <button class="btn btn-primary" (click)="viewRepo(repo)">View</button>
                     </td>
                 </tr>
             </tbody>
