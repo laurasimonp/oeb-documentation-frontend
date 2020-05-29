@@ -1,8 +1,8 @@
-import { Component, OnInit, ɵɵresolveBody } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';;
 
 import { Repository } from '../model/Repository';
-import { Topic } from '../model/Topic';
+
+import { RepositoryService } from '../services/repository.service';
 
 @Component({
   selector: 'app-repository',
@@ -25,13 +25,13 @@ export class RepositoryComponent implements OnInit {
   currentPage: number;
   itemsPerPage: number;
 
-  constructor(private http: HttpClient) { }
+  constructor(private repoService: RepositoryService) { }
 
   ngOnInit(): void {
-    this.http.get<string[]>('http://localhost:8080/github-docs-backend/topics').subscribe(data => {
+    this.repoService.getTopics().subscribe(data => {
       this.topics = data;
     });
-    this.http.get<Repository[]>('http://localhost:8080/github-docs-backend/repositories').subscribe(data => {
+    this.repoService.getRepos().subscribe(data => {
       this.repos = data;
       this.reposFiltered = this.repos;
     });
@@ -82,15 +82,13 @@ export class RepositoryComponent implements OnInit {
   }
 
   filter3() {
-    for (let topic of this.topics) {
-      this.http.get<Repository[]>('http://localhost:8080/github-docs-backend/repositories?t=' + topic).subscribe(data => {
+      this.repoService.getFilteredRepos().subscribe(data => {
         this.reposFiltered = data;
       });
-    }
   }
 
   viewRepo(repo: Repository) {
-    this.http.get<Repository>('http://localhost:8080/github-docs-backend/repository/' + repo.name).subscribe(data => {
+    this.repoService.getRepoData(repo).subscribe(data => {
       this.repoSelected = data;
     });
   }

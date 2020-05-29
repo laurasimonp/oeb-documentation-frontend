@@ -3,7 +3,11 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+
+  TOPICS: 'http://localhost:8080/github-docs-backend/topics',
+  REPOSITORIES: 'http://localhost:8080/github-docs-backend/repositories',
+  REPOSITORY: 'http://localhost:8080/github-docs-backend/repository/'
 };
 
 /*

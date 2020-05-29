@@ -16,7 +16,7 @@
             <td>{{ repo.name }}</td>
             <td><span *ngFor="let topic of repo.topics">{{ topic }}, </span></td>
             <td>{{ repo.description }}</td>
-            <td><span *ngFor="let cont of repo.contributors">{{ cont }}, </span></td>
+            <td><span *ngFor="let cont of repo.contributors">{{ cont.login }}, </span></td>
             <td><span *ngFor="let language of repo.languages">{{ language }}, </span></td>
             <td>{{ repo.license }}</td>
             <td><a href="{{ repo.url }}" target="_blank">website</a></td>
