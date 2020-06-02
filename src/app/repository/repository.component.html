@@ -1,94 +1,115 @@
 <div class="container">
-    <form #reposFilterForm="ngForm" novalidate>
-        <b>FILTERS</b>
-        <table class="table table-striped">
-            <tr>
-                <td>
-                    <div class="multiselect">
-                        <div class="selectBox" (click)="showCheckboxes()">
-
-                            <select class="form-control">
-                                <option>Filter by topic</option>
-                            </select>
-                            <div class="overSelect"></div>
-                        </div>
-                        <div id="checkboxes">
-                            <span *ngFor="let topic of topics, let i=index" [(ngModel)]="topicFilter" name="topicFilter"> <!-- (ngModelChange)="filter()" -->
-                                <input type="checkbox" id="{{i}}">&nbsp;{{ topic.name }}
-                                <br>
-                            </span>
-                        </div>
-                    </div>
-                </td>
-                <td>
-                    <button class="btn btn-primary" (click)="filter3()">Filter</button>
-                </td>
-            </tr>
-        </table>
-    </form>
+  <form #reposFilterForm="ngForm" novalidate>
+    <b>FILTERS</b>
+    <table class="table table-striped">
+      <tr>
+        <td>
+          <div class="multiselect">
+            <div class="selectBox" (click)="showCheckboxes()">
+              <select class="form-control">
+                <option>Filter by topic</option>
+              </select>
+              <div class="overSelect"></div>
+            </div>
+            <div id="checkboxes">
+              <span
+                *ngFor="let topic of topics; let i = index"
+                name="topicFilter"
+              >
+                <!-- (ngModelChange)="filter()" //[(ngModel)]="topicFilter" -->
+                <input type="checkbox" id="{{ i }}" />&nbsp;{{ topic.url }}
+                <br />
+              </span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <button class="btn btn-primary" (click)="filter3()">Filter</button>
+        </td>
+      </tr>
+    </table>
+  </form>
 </div>
 
 <div class="container">
-    <form #reposManagementForm="ngForm" novalidate>
-        <b>PAGINATION</b>
-        <table class="table table-striped">
-            <tr>
-                <td>
-                    Current Page
-                </td>
-                <td>
-                    {{ currentPage }}
-                </td>
-            </tr>
-            <tr>
-                <td>Repositories per page</td>
-                <td>
-                    <input type="number" [(ngModel)]="itemsPerPage" name="itemsPerPage">
-                </td>
-            </tr>
-            <tr>
-                <td>Repositories found</td>
-                <td>{{ filteredRepos.length }}</td>
-            </tr>
-        </table>
+  <form #reposManagementForm="ngForm" novalidate>
+    <b>PAGINATION</b>
+    <table class="table table-striped">
+      <tr>
+        <td>
+          Current Page
+        </td>
+        <td>
+          {{ currentPage }}
+        </td>
+      </tr>
+      <tr>
+        <td>Repositories per page</td>
+        <td>
+          <input type="number" [(ngModel)]="itemsPerPage" name="itemsPerPage" />
+        </td>
+      </tr>
+      <tr>
+        <td>Repositories found</td>
+        <td>{{ filteredRepos.length }}</td>
+      </tr>
+    </table>
 
-        <pagination-controls (pageChange)="currentPage=$event" maxSize="5" directionLinks="true" autoHide="true">
-        </pagination-controls>
-        <br>
+    <pagination-controls
+      (pageChange)="currentPage = $event"
+      maxSize="5"
+      directionLinks="true"
+      autoHide="true"
+    >
+    </pagination-controls>
+    <br />
 
-        <b>REPOSITORIES</b>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Topics</th>
-                    <th>Description</th>
-                    <th>Website</th>
-                    <th>Repository data</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let repo of filteredRepos | paginate: {
-                     itemsPerPage: itemsPerPage,
-                     currentPage: currentPage
-                 }">
-                    <td>{{ repo.name }}</td>
-                    <td>
-                        <span *ngFor="let topic of repo.topics">{{ topic }}, </span>
-                    </td>
-                    <td>{{ repo.description }}</td>
-                    <td><a href="{{ repo.url }}" target="_blank">website</a></td>
-                    <td>
-                        <button class="btn btn-primary" (click)="viewRepo(repo)">View</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+    <b>REPOSITORIES</b>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Topics</th>
+          <th>Description</th>
+          <th>Website</th>
+          <th>Repository data</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="
+            let repo of filteredRepos
+              | paginate
+                : {
+                    itemsPerPage: itemsPerPage,
+                    currentPage: currentPage
+                  }
+          "
+        >
+          <td>{{ repo.name }}</td>
+          <td>
+            <span *ngFor="let topic of repo.topics">{{ topic }}, </span>
+          </td>
+          <td>{{ repo.description }}</td>
+          <td><a href="{{ repo.url }}" target="_blank">website</a></td>
+          <td>
+            <button class="btn btn-primary" routerLink="{{ repo.name }}">
+              View
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
 
-        <pagination-controls (pageChange)="currentPage=$event" maxSize="5" directionLinks="true" autoHide="true">
-        </pagination-controls>
-    </form>
+    <pagination-controls
+      (pageChange)="currentPage = $event"
+      maxSize="5"
+      directionLinks="true"
+      autoHide="true"
+    >
+    </pagination-controls>
+  </form>
 </div>
 
-<app-repository-data *ngIf="repoSelected" [repo]="repoSelected">
-</app-repository-data>
+<!-- <app-repository-data *ngIf="repoSelected" [repo]="repoSelected">
+</app-repository-data> -->

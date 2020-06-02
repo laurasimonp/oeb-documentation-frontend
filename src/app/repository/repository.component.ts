@@ -1,16 +1,15 @@
-import { Component, OnInit } from '@angular/core';;
+import { Component, OnInit } from "@angular/core";
 
-import { Repository } from '../model/Repository';
+import { Repository } from "../model/Repository";
 
-import { RepositoryService } from '../services/repository.service';
+import { RepositoryService } from "../services/repository.service";
 
 @Component({
-  selector: 'app-repository',
-  templateUrl: './repository.component.html',
-  styleUrls: ['./repository.component.css']
+  selector: "app-repository",
+  templateUrl: "./repository.component.html",
+  styleUrls: ["./repository.component.css"],
 })
 export class RepositoryComponent implements OnInit {
-
   //attributes
   topics: string[] = [];
   repos: Repository[] = [];
@@ -25,13 +24,13 @@ export class RepositoryComponent implements OnInit {
   currentPage: number;
   itemsPerPage: number;
 
-  constructor(private repoService: RepositoryService) { }
+  constructor(private repoService: RepositoryService) {}
 
   ngOnInit(): void {
-    this.repoService.getTopics().subscribe(data => {
+    this.repoService.getTopics().subscribe((data) => {
       this.topics = data;
     });
-    this.repoService.getRepos().subscribe(data => {
+    this.repoService.getRepos().subscribe((data) => {
       this.repos = data;
       this.filteredRepos = this.repos;
     });
@@ -52,11 +51,13 @@ export class RepositoryComponent implements OnInit {
   }
 
   filter() {
-    this.filteredRepos = this.repos.filter(repo => {
+    this.filteredRepos = this.repos.filter((repo) => {
       let topicValid: boolean = false;
       for (let topic of repo.topics) {
         if (this.topicFilter) {
-          if (topic.toLowerCase().indexOf(this.topicFilter.toLowerCase()) != -1) {
+          if (
+            topic.toLowerCase().indexOf(this.topicFilter.toLowerCase()) != -1
+          ) {
             topicValid = true;
           }
         } else {
@@ -65,7 +66,7 @@ export class RepositoryComponent implements OnInit {
       }
 
       return topicValid;
-    })
+    });
   }
 
   filter2(): Repository[] {
@@ -82,16 +83,17 @@ export class RepositoryComponent implements OnInit {
   }
 
   filter3() {
-      this.repoService.getFilteredRepos().subscribe(data => {
-        this.filteredRepos = data;
-      });
-  }
-
-  viewRepo(repo: Repository) {
-    this.repoService.getRepoData(repo).subscribe(data => {
-      this.repoSelected = data;
+    this.repoService.getFilteredRepos().subscribe((data) => {
+      this.filteredRepos = data;
     });
   }
+
+  // viewRepo(repo: Repository) {
+  //   console.log(repo);
+  //   this.repoService.getRepoData(repo).subscribe((data) => {
+  //     this.repoSelected = data;
+  //   });
+  // }
 
   generateHtmlFromReadme() {
     let html: HTMLElement;
