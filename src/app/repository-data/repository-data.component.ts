@@ -1,5 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 
 import { Repository } from '../model/Repository';
 
@@ -13,7 +12,7 @@ export class RepositoryDataComponent implements OnInit {
   //attributes
   @Input() repo: Repository;
   
-  constructor(private http: HttpClient) { }
+  constructor() { }
 
   ngOnInit(): void {
 

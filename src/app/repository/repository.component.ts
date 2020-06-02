@@ -14,7 +14,7 @@ export class RepositoryComponent implements OnInit {
   //attributes
   topics: string[] = [];
   repos: Repository[] = [];
-  reposFiltered: Repository[] = [];
+  filteredRepos: Repository[] = [];
   repoSelected: Repository;
 
   //filter properties
@@ -33,7 +33,7 @@ export class RepositoryComponent implements OnInit {
     });
     this.repoService.getRepos().subscribe(data => {
       this.repos = data;
-      this.reposFiltered = this.repos;
+      this.filteredRepos = this.repos;
     });
 
     this.itemsPerPage = 10;
@@ -52,7 +52,7 @@ export class RepositoryComponent implements OnInit {
   }
 
   filter() {
-    this.reposFiltered = this.repos.filter(repo => {
+    this.filteredRepos = this.repos.filter(repo => {
       let topicValid: boolean = false;
       for (let topic of repo.topics) {
         if (this.topicFilter) {
@@ -73,17 +73,17 @@ export class RepositoryComponent implements OnInit {
       for (let repo of this.repos) {
         for (let topicRepo of repo.topics) {
           if (topic.toLowerCase() == topicRepo.toLowerCase()) {
-            this.reposFiltered = this.repos;
+            this.filteredRepos = this.repos;
           }
         }
       }
     }
-    return this.reposFiltered;
+    return this.filteredRepos;
   }
 
   filter3() {
       this.repoService.getFilteredRepos().subscribe(data => {
-        this.reposFiltered = data;
+        this.filteredRepos = data;
       });
   }
 

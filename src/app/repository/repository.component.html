@@ -48,7 +48,7 @@
             </tr>
             <tr>
                 <td>Repositories found</td>
-                <td>{{ reposFiltered.length }}</td>
+                <td>{{ filteredRepos.length }}</td>
             </tr>
         </table>
 
@@ -68,7 +68,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let repo of reposFiltered | paginate: {
+                <tr *ngFor="let repo of filteredRepos | paginate: {
                      itemsPerPage: itemsPerPage,
                      currentPage: currentPage
                  }">
