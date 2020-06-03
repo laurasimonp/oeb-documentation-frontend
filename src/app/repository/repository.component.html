@@ -12,8 +12,8 @@
               <div class="overSelect"></div>
             </div>
             <div id="checkboxes">
-              <span *ngFor="let topic of topics; let i = index" name="topicFilter">
-                <!-- (ngModelChange)="filter()" //[(ngModel)]="topicFilter" -->
+              <span *ngFor="let topic of topics; let i = index" [(ngModel)]="topicFilter" name="topicFilter"
+                (ngModelChange)="getSelectedTopics()">
                 <input type="checkbox" id="{{ i }}">&nbsp;{{ topic.name }}
                 <br>
               </span>
@@ -21,7 +21,7 @@
           </div>
         </td>
         <td>
-          <button class="btn btn-primary" (click)="filter(topics)">Filter</button>
+          <button class="btn btn-primary" (click)="filter(selectedTopics)">Filter</button>
         </td>
       </tr>
     </table>

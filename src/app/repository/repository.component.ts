@@ -13,11 +13,12 @@ export class RepositoryComponent implements OnInit {
   //attributes
   topics: string[] = [];
   repos: Repository[] = [];
-  filteredRepos: Repository[] = [];
-
+  
   //filter properties
-  //topicFilter: string;
   expanded: boolean = false;
+  topicFilter: string[];
+  selectedTopics: string[] = [];
+  filteredRepos: Repository[] = [];
 
   //pagination properties
   currentPage: number;
@@ -47,6 +48,18 @@ export class RepositoryComponent implements OnInit {
       checkboxes.style.display = "none";
       this.expanded = false;
     }
+  }
+
+  getSelectedTopics(): string[] {
+    this.selectedTopics = this.topicFilter;
+    return this.selectedTopics;
+  }
+
+  filter(topicsArray: string[]) {
+    topicsArray = this.getSelectedTopics();
+    this.repoService.getFilteredRepos(topicsArray).subscribe((data) => {
+      this.filteredRepos = data;
+    });
   }
 
   /*filter2(): Repository[] {
@@ -80,10 +93,4 @@ export class RepositoryComponent implements OnInit {
       return topicValid;
     });
   }*/
-
-  filter(topicsArray: string[]) {
-    this.repoService.getFilteredRepos(topicsArray).subscribe((data) => {
-      this.filteredRepos = data;
-    });
-  }
 }
