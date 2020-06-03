@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
 
 import { Topic } from '../model/Topic';
+
+import { TopicService } from "../services/topic.service";
 
 @Component({
   selector: 'app-topic',
@@ -10,18 +10,14 @@ import { Topic } from '../model/Topic';
   styleUrls: ['./topic.component.css']
 })
 export class TopicComponent implements OnInit {
-
   //attributes
   topics: Topic[];
 
-  constructor(
-    private http: HttpClient,
-    private route: ActivatedRoute
-  ) { }
+  constructor(private topicService: TopicService) { }
 
   ngOnInit(): void {
-    this.http.get<Topic[]>('http://localhost:8080/github-docs-backend/topics').subscribe(data => {
+    this.topicService.getTopics().subscribe(data => {
       this.topics = data;
-    })
+    });
   }
 }

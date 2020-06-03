@@ -14,17 +14,16 @@ export class RepositoryComponent implements OnInit {
   topics: string[] = [];
   repos: Repository[] = [];
   filteredRepos: Repository[] = [];
-  repoSelected: Repository;
 
   //filter properties
-  topicFilter: string;
+  //topicFilter: string;
   expanded: boolean = false;
 
   //pagination properties
   currentPage: number;
   itemsPerPage: number;
 
-  constructor(private repoService: RepositoryService) {}
+  constructor(private repoService: RepositoryService) { }
 
   ngOnInit(): void {
     this.repoService.getTopics().subscribe((data) => {
@@ -50,7 +49,20 @@ export class RepositoryComponent implements OnInit {
     }
   }
 
-  filter() {
+  /*filter2(): Repository[] {
+    for (let topic of this.topics) {
+      for (let repo of this.repos) {
+        for (let topicRepo of repo.topics) {
+          if (topic.toLowerCase() == topicRepo.toLowerCase()) {
+            this.filteredRepos = this.repos;
+          }
+        }
+      }
+    }
+    return this.filteredRepos;
+  }
+
+  filter3() {
     this.filteredRepos = this.repos.filter((repo) => {
       let topicValid: boolean = false;
       for (let topic of repo.topics) {
@@ -67,33 +79,13 @@ export class RepositoryComponent implements OnInit {
 
       return topicValid;
     });
-  }
+  }*/
 
-  filter2(): Repository[] {
-    for (let topic of this.topics) {
-      for (let repo of this.repos) {
-        for (let topicRepo of repo.topics) {
-          if (topic.toLowerCase() == topicRepo.toLowerCase()) {
-            this.filteredRepos = this.repos;
-          }
-        }
-      }
-    }
-    return this.filteredRepos;
-  }
-
-  filter3() {
-    this.repoService.getFilteredRepos().subscribe((data) => {
+  filter(topicsArray: string[]) {
+    this.repoService.getFilteredRepos(topicsArray).subscribe((data) => {
       this.filteredRepos = data;
     });
   }
-
-  // viewRepo(repo: Repository) {
-  //   console.log(repo);
-  //   this.repoService.getRepoData(repo).subscribe((data) => {
-  //     this.repoSelected = data;
-  //   });
-  // }
 
   generateHtmlFromReadme() {
     let html: HTMLElement;

@@ -1,8 +1,10 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 
 import { Repository } from "../model/Repository";
-import { ActivatedRoute, Router } from "@angular/router";
+
 import { RepositoryService } from "../services/repository.service";
+
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: "app-repository-data",
@@ -13,13 +15,10 @@ export class RepositoryDataComponent implements OnInit {
   //attributes
   repo: Repository;
 
-  name: string;
-
   constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private repoService: RepositoryService
-  ) {}
+    private repoService: RepositoryService,
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit(): void {
     this.viewRepo(this.getParam("name"));
@@ -35,7 +34,6 @@ export class RepositoryDataComponent implements OnInit {
   viewRepo(name: string) {
     this.repoService.getRepoDataByName(name).subscribe((data) => {
       this.repo = data;
-      console.log(data);
     });
   }
 }

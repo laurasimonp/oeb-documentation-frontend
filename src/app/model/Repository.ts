@@ -7,7 +7,7 @@ export class Repository {
     private _topics: string[];
     private _description: string;
     private _url: string;
-    private _contributors: Contributor[];
+    private _contributors: string[];
     private _languages: string[];
     private _license: string;
     private _readme: string;
@@ -19,13 +19,13 @@ export class Repository {
      * @param {string[]} topics
      * @param {string} description
      * @param {string} url
-     * @param {Contributor[]} contributors
+     * @param {string[]} contributors
      * @param {string[]} languages
      * @param {string} license
      * @param {string} readme
      * @memberof Repository
      */
-    constructor(id?: string, name?: string, topics?: string[], description?: string, url?: string, contributors?: Contributor[], languages?: string[], license?: string, readme?: string) {
+    constructor(id?: string, name?: string, topics?: string[], description?: string, url?: string, contributors?: string[], languages?: string[], license?: string, readme?: string) {
         this._id = id;
         this._name = name;
         this._topics = topics;
@@ -79,9 +79,9 @@ export class Repository {
 
     /**
      * Getter contributors
-     * @return {Contributor[]}
+     * @return {string[]}
      */
-    public get contributors(): Contributor[] {
+    public get contributors(): string[] {
         return this._contributors;
     }
 
@@ -151,9 +151,9 @@ export class Repository {
 
     /**
      * Setter contributors
-     * @param {Contributor[]} value
+     * @param {string[]} value
      */
-    public set contributors(value: Contributor[]) {
+    public set contributors(value: string[]) {
         this._contributors = value;
     }
 

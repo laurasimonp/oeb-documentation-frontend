@@ -1,5 +1,4 @@
 <div class="container">
-  <input type="text" />
   <table *ngIf="repo" class="table table-striped">
     <tr>
       <th>Id</th>
@@ -26,10 +25,10 @@
         <span *ngFor="let language of repo.languages">{{ language }}, </span>
       </td>
       <td>{{ repo.license }}</td>
-      <td><a href="{{ repo.url }}" target="_blank">website</a></td>
-      <td [innerHTML]="repo.readme | marked">
-        <button formtarget="_blank">Readme.md</button>
+      <td>
+        <a href="{{ repo.url }}" target="_blank">website</a>
       </td>
+      <td [innerHTML]="repo.readme | marked"></td>
     </tr>
   </table>
 </div>
