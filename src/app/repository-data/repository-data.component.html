@@ -1,34 +1,23 @@
-<div class="container">
-  <table *ngIf="repo" class="table table-striped">
-    <tr>
-      <th>Id</th>
-      <th>Name</th>
-      <th>Topics</th>
-      <th>Description</th>
-      <th>Contributors</th>
-      <th>Languages</th>
-      <th>License</th>
-      <th>Website</th>
-      <th>Readme</th>
-    </tr>
-    <tr>
-      <td>{{ repo.id }}</td>
-      <td>{{ repo.name }}</td>
-      <td>
-        <span *ngFor="let topic of repo.topics">{{ topic }}, </span>
-      </td>
-      <td>{{ repo.description }}</td>
-      <td>
-        <span *ngFor="let cont of repo.contributors">{{ cont.login }}, </span>
-      </td>
-      <td>
-        <span *ngFor="let language of repo.languages">{{ language }}, </span>
-      </td>
-      <td>{{ repo.license }}</td>
-      <td>
-        <a href="{{ repo.url }}" target="_blank">website</a>
-      </td>
-      <td [innerHTML]="repo.readme | marked"></td>
-    </tr>
-  </table>
+<div class="container" *ngIf="repo">
+  <h2>{{ repo.name }}</h2>
+  <a href="{{ repo.url }}" target="_blank">{{ repo.url }}</a>
+  <br><br><br>
+  <p><b>ID: </b>{{ repo.id }}</p>
+  <p>
+    <b>Topics: </b>
+    <span *ngFor="let topic of repo.topics">{{ topic }}, </span>
+  </p>
+  <p *ngIf="repo.description"><b>Description: </b>{{ repo.description }}</p>
+  <p *ngIf="repo.contributors">
+    <b>Contributors: </b>
+    <span *ngFor="let cont of repo.contributors">{{ cont.login }}, </span>
+  </p>
+  <p *ngIf="repo.languages">
+    <b>Languages: </b>
+    <span *ngFor="let language of repo.languages">{{ language }}, </span>
+  </p>
+  <p *ngIf="repo.license"><b>License: </b>{{ repo.license }}</p>
+  <br>
+  <h5 *ngIf="repo.readme">README.md:</h5>
+  <p [innerHTML]="repo.readme | marked"></p>
 </div>

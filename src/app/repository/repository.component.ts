@@ -86,12 +86,4 @@ export class RepositoryComponent implements OnInit {
       this.filteredRepos = data;
     });
   }
-
-  generateHtmlFromReadme() {
-    let html: HTMLElement;
-    let body = html.getElementsByTagName("body");
-    for (let repo of this.repos) {
-      repo.readme = "";
-    }
-  }
 }
