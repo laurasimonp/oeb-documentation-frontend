@@ -15,6 +15,7 @@ import { RepositoryComponent } from './repository/repository.component';
 import { RepositoryDataComponent } from './repository-data/repository-data.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { MarkedPipe } from './marked.pipe';
+import { TopMenuComponent } from './top-menu/top-menu.component';
 
 @NgModule({
   imports: [
@@ -33,7 +34,8 @@ import { MarkedPipe } from './marked.pipe';
     RepositoryComponent,
     RepositoryDataComponent,
     PageNotFoundComponent,
-    MarkedPipe
+    MarkedPipe,
+    TopMenuComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

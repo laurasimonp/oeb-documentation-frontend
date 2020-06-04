@@ -1,40 +1,30 @@
 <div class="container">
   <form #reposFilterForm="ngForm" novalidate>
-    <b>FILTERS</b>
-    <table class="table table-striped">
-      <tr>
-        <td>
-          <div class="multiselect">
-            <div class="selectBox" (click)="showCheckboxes()">
-              <select class="form-control">
-                <option>Filter by topic</option>
-              </select>
-              <div class="overSelect"></div>
-            </div>
-            <div id="checkboxes">
-              <span *ngFor="let topic of topics; let i = index" [(ngModel)]="topicFilter" name="topicFilter"
-                (ngModelChange)="getSelectedTopics()">
-                <input type="checkbox" id="{{ i }}">&nbsp;{{ topic.name }}
-                <br>
-              </span>
-            </div>
-          </div>
-        </td>
-        <td>
-          <button class="btn btn-primary" (click)="filterReposByTopic(selectedTopics)">Filter</button>
-        </td>
-      </tr>
-    </table>
+    <b>REPOSITORIES</b>
+    <br>
+    <div class="multiselect">
+      <div class="selectBox" (click)="showCheckboxes()">
+        <select class="form-control">
+          <option>Filter by topic</option>
+        </select>
+        <div class="overSelect"></div>
+      </div>
+      <div id="checkboxes">
+        <span *ngFor="let topic of topics; let i = index" [(ngModel)]="topicFilter" name="topicFilter"
+          (ngModelChange)="getSelectedTopics()">
+          <input type="checkbox" id="{{ i }}">&nbsp;{{ topic.name }}
+          <br>
+        </span>
+      </div>
+    </div>
+    <br>
+    <button class="btn btn-primary" (click)="filterReposByTopic(selectedTopics)">Filter</button>
   </form>
 </div>
+<br><br>
 
 <div class="container">
   <form #reposManagementForm="ngForm" novalidate>
-    <b>REPOSITORIES</b>
-
-    <pagination-controls (pageChange)="currentPage = $event" maxSize="5" directionLinks="true" autoHide="true">
-    </pagination-controls>
-
     <table class="table table-striped">
       <thead>
         <tr>
@@ -42,7 +32,6 @@
           <th>Topics</th>
           <th>Description</th>
           <th>Website</th>
-          <th>Repository data</th>
         </tr>
       </thead>
       <tbody>
@@ -50,15 +39,12 @@
                     itemsPerPage: itemsPerPage,
                     currentPage: currentPage
                   }">
-          <td>{{ repo.name }}</td>
+          <td><a href="{{ repo.name }}" routerLink="{{ repo.name }}">{{ repo.name }}</a></td>
           <td>
             <span *ngFor="let topic of repo.topics; last as isLast">{{ topic }}<span *ngIf="!isLast">, </span></span>
           </td>
           <td>{{ repo.description }}</td>
-          <td><a href="{{ repo.url }}" target="_blank">website</a></td>
-          <td>
-            <button class="btn btn-primary" routerLink="{{ repo.name }}">View</button>
-          </td>
+          <td><a href="{{ repo.url }}" target="_blank">{{ repo.url }}</a></td>
         </tr>
       </tbody>
     </table>
