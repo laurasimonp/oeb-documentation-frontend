@@ -21,7 +21,7 @@ export class RepositoryDataComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.viewRepo(this.getParam("name"));
+    this.viewRepoData(this.getParam("name"));
   }
 
   /**
@@ -31,7 +31,7 @@ export class RepositoryDataComponent implements OnInit {
     return this.route.snapshot.paramMap.get(param);
   }
 
-  viewRepo(name: string) {
+  viewRepoData(name: string) {
     this.repoService.getRepoDataByName(name).subscribe((data) => {
       this.repo = data;
     });

@@ -55,7 +55,7 @@ export class RepositoryComponent implements OnInit {
     return this.selectedTopics;
   }
 
-  filter(topicsArray: string[]) {
+  filterReposByTopic(topicsArray: string[]) {
     topicsArray = this.getSelectedTopics();
     this.repoService.getFilteredRepos(topicsArray).subscribe((data) => {
       this.filteredRepos = data;

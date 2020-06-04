@@ -5,16 +5,16 @@
   <p><b>ID: </b>{{ repo.id }}</p>
   <p>
     <b>Topics: </b>
-    <span *ngFor="let topic of repo.topics">{{ topic }}, </span>
+    <span *ngFor="let topic of repo.topics; last as isLast">{{ topic }}<span *ngIf="!isLast">, </span></span>
   </p>
   <p *ngIf="repo.description"><b>Description: </b>{{ repo.description }}</p>
   <p *ngIf="repo.contributors">
     <b>Contributors: </b>
-    <span *ngFor="let cont of repo.contributors">{{ cont.login }}, </span>
+    <span *ngFor="let cont of repo.contributors; last as isLast">{{ cont.login }}<span *ngIf="!isLast">, </span></span>
   </p>
   <p *ngIf="repo.languages">
     <b>Languages: </b>
-    <span *ngFor="let language of repo.languages">{{ language }}, </span>
+    <span *ngFor="let language of repo.languages; last as isLast">{{ language }}<span *ngIf="!isLast">, </span></span>
   </p>
   <p *ngIf="repo.license"><b>License: </b>{{ repo.license }}</p>
   <br>

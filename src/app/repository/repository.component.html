@@ -21,7 +21,7 @@
           </div>
         </td>
         <td>
-          <button class="btn btn-primary" (click)="filter(selectedTopics)">Filter</button>
+          <button class="btn btn-primary" (click)="filterReposByTopic(selectedTopics)">Filter</button>
         </td>
       </tr>
     </table>
@@ -30,29 +30,11 @@
 
 <div class="container">
   <form #reposManagementForm="ngForm" novalidate>
-    <b>PAGINATION</b>
-    <table class="table table-striped">
-      <tr>
-        <td>Current Page</td>
-        <td>{{ currentPage }}</td>
-      </tr>
-      <tr>
-        <td>Repositories per page</td>
-        <td>
-          <input type="number" [(ngModel)]="itemsPerPage" name="itemsPerPage">
-        </td>
-      </tr>
-      <tr>
-        <td>Repositories found</td>
-        <td>{{ filteredRepos.length }}</td>
-      </tr>
-    </table>
+    <b>REPOSITORIES</b>
 
     <pagination-controls (pageChange)="currentPage = $event" maxSize="5" directionLinks="true" autoHide="true">
     </pagination-controls>
-    <br>
 
-    <b>REPOSITORIES</b>
     <table class="table table-striped">
       <thead>
         <tr>
@@ -70,7 +52,7 @@
                   }">
           <td>{{ repo.name }}</td>
           <td>
-            <span *ngFor="let topic of repo.topics">{{ topic }}, </span>
+            <span *ngFor="let topic of repo.topics; last as isLast">{{ topic }}<span *ngIf="!isLast">, </span></span>
           </td>
           <td>{{ repo.description }}</td>
           <td><a href="{{ repo.url }}" target="_blank">website</a></td>
@@ -83,5 +65,22 @@
 
     <pagination-controls (pageChange)="currentPage = $event" maxSize="5" directionLinks="true" autoHide="true">
     </pagination-controls>
+
+    <table class="table table-striped">
+      <tr>
+        <td>Current Page</td>
+        <td>{{ currentPage }}</td>
+      </tr>
+      <tr>
+        <td>Repositories per page</td>
+        <td>
+          <input type="number" [(ngModel)]="itemsPerPage" name="itemsPerPage">
+        </td>
+      </tr>
+      <tr>
+        <td>Repositories found</td>
+        <td>{{ filteredRepos.length }}</td>
+      </tr>
+    </table>
   </form>
 </div>
