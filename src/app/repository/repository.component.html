@@ -60,7 +60,7 @@
       <tr>
         <td>Repositories per page</td>
         <td>
-          <input type="number" [(ngModel)]="itemsPerPage" name="itemsPerPage">
+          <input type="number" [(ngModel)]="itemsPerPage" name="itemsPerPage" min=1 pattern="^[0-9]$">
         </td>
       </tr>
       <tr>

@@ -2,16 +2,13 @@ import { Component, OnInit } from "@angular/core";
 import { Location } from "@angular/common";
 
 /**
- * This component is where the we specify the top menu paths
+ * This component is where we specify the top menu paths
  */
 @Component({
   selector: "app-top-menu",
   templateUrl: "./top-menu.component.html",
   styleUrls: ["./top-menu.component.css"]
 })
-/**
- * Class top menu component
- */
 export class TopMenuComponent implements OnInit {
 
   constructor(private location: Location) { }

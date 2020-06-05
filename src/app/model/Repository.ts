@@ -1,6 +1,3 @@
-import { Topic } from './Topic';
-import { Contributor } from './Contributor';
-
 export class Repository {
     private _id: string;
     private _name: string;

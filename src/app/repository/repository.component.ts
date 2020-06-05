@@ -13,10 +13,10 @@ export class RepositoryComponent implements OnInit {
   //attributes
   topics: string[] = [];
   repos: Repository[] = [];
-  
+
   //filter properties
   expanded: boolean = false;
-  topicFilter: string[];
+  topicFilter: string[] = [];
   selectedTopics: string[] = [];
   filteredRepos: Repository[] = [];
 
