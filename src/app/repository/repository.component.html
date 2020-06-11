@@ -1,24 +1,45 @@
 <div class="container">
   <form #reposFilterForm="ngForm" novalidate>
-    <b>REPOSITORIES</b>
-    <br>
-    <div class="multiselect">
-      <div class="selectBox" (click)="showCheckboxes()">
-        <select class="form-control">
-          <option>Filter by topic</option>
-        </select>
-        <div class="overSelect"></div>
-      </div>
-      <div id="checkboxes">
-        <span *ngFor="let topic of topics; let i = index" [(ngModel)]="topicFilter" name="topicFilter"
-          (ngModelChange)="getSelectedTopics()">
-          <input type="checkbox" id="{{ i }}">&nbsp;{{ topic.name }}
-          <br>
-        </span>
-      </div>
-    </div>
-    <br>
-    <button class="btn btn-primary" (click)="filterReposByTopic(selectedTopics)">Filter</button>
+    <table>
+      <tr>
+        <td>
+          <b>Filter by topics</b>
+        </td>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <td>
+          <b>Filter by name</b>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="multiselect">
+            <div class="selectBox" (click)="showCheckboxes()">
+              <select class="form-control">
+                <option>Select topics</option>
+              </select>
+              <div class="overSelect"></div>
+            </div>
+            <div id="checkboxes" [(ngModel)]="selectedTopics" name="selectedTopics"
+              (ngModelChange)="getSelectedTopics($event)">
+              <!--[ngValue]="topic"-->
+              <span *ngFor="let topic of topics">
+                <input type="checkbox">&nbsp;{{ topic.name }}
+                <br>
+              </span>
+            </div>
+          </div>
+        </td>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <td>
+          <input class="form-control" type="text" [(ngModel)]="nameFilter" name="nameFilter" (ngModelChange)="filter()"
+            placeholder="Type a name">
+        </td>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <td>
+          <button class="btn btn-primary" (click)="filterRepos(selectedTopics)">Filter</button>
+        </td>
+      </tr>
+    </table>
   </form>
 </div>
 <br><br>

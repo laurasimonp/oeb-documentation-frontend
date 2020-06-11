@@ -17,6 +17,7 @@ export class RepositoryComponent implements OnInit {
   //filter properties
   expanded: boolean = false;
   topicFilter: string[] = [];
+  nameFilter: string = "";
   selectedTopics: string[] = [];
   filteredRepos: Repository[] = [];
 
@@ -50,16 +51,35 @@ export class RepositoryComponent implements OnInit {
     }
   }
 
-  getSelectedTopics(): string[] {
+  getSelectedTopics($event): string[] {
     this.selectedTopics = this.topicFilter;
+    console.log(this.topicFilter);
     return this.selectedTopics;
   }
 
-  filterReposByTopic(topicsArray: string[]) {
-    topicsArray = this.getSelectedTopics();
+  filterRepos(topicsArray: string[]) {
+    topicsArray = this.getSelectedTopics(Event);
     this.repoService.getFilteredRepos(topicsArray).subscribe((data) => {
       this.filteredRepos = data;
     });
+  }
+
+  filter() {
+    this.filteredRepos = this.repos.filter(
+      repository => {
+        let nameValid: boolean = false;
+
+        if (this.nameFilter && this.nameFilter != "") {
+          if (repository.name.toLowerCase().indexOf
+            (this.nameFilter.toLowerCase()) != -1) {
+            nameValid = true;
+          }
+        } else {
+          nameValid = true;
+        }
+
+        return nameValid;
+      })
   }
 
   /*filter2(): Repository[] {
