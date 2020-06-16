@@ -1,50 +1,40 @@
 <div class="container">
-  <form #reposFilterForm="ngForm" novalidate>
-    <table>
-      <tr>
-        <td>
-          <b>Filter by topics</b>
-        </td>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <td>
-          <b>Filter by name</b>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <div class="multiselect">
-            <div class="selectBox" (click)="showCheckboxes()">
-              <select class="form-control">
-                <option>Select topics</option>
-              </select>
-              <div class="overSelect"></div>
-            </div>
-            <div id="checkboxes" [(ngModel)]="selectedTopics" name="selectedTopics"
-              (ngModelChange)="getSelectedTopics($event)">
-              <!--[ngValue]="topic"-->
-              <span *ngFor="let topic of topics">
-                <input type="checkbox">&nbsp;{{ topic.name }}
-                <br>
-              </span>
-            </div>
-          </div>
-        </td>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <td>
-          <input class="form-control" type="text" [(ngModel)]="nameFilter" name="nameFilter" (ngModelChange)="filter()"
-            placeholder="Type a name">
-        </td>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <td>
-          <button class="btn btn-primary" (click)="filterRepos(selectedTopics)">Filter</button>
-        </td>
-      </tr>
-    </table>
-  </form>
-</div>
-<br><br>
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <ng-select
+          [items]="topics"
+          [multiple]="true"
+          [closeOnSelect]="false"
+          [hideSelected]="true"
+          bindLabel="name"
+          placeholder="Select topics"
+          [(ngModel)]="selectedTopics"
+        >
+        </ng-select>
+      </div>
 
-<div class="container">
+      <button
+        type="button"
+        class="col col-md-auto btn btn-primary"
+        (click)="getSelectedTopics()"
+      >
+        Submit
+      </button>
+
+      <div class="col col-md-auto">
+        <input
+          class="form-control"
+          type="text"
+          [(ngModel)]="nameFilter"
+          name="nameFilter"
+          (ngModelChange)="filter()"
+          placeholder="Type a name"
+        />
+      </div>
+    </div>
+  </div>
+
   <form #reposManagementForm="ngForm" novalidate>
     <table class="table table-striped">
       <thead>
@@ -56,21 +46,40 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let repo of filteredRepos | paginate: {
+        <tr
+          *ngFor="
+            let repo of filteredRepos
+              | paginate
+                : {
                     itemsPerPage: itemsPerPage,
                     currentPage: currentPage
-                  }">
-          <td><a href="{{ repo.name }}" routerLink="{{ repo.name }}">{{ repo.name }}</a></td>
+                  }
+          "
+        >
           <td>
-            <span *ngFor="let topic of repo.topics; last as isLast">{{ topic }}<span *ngIf="!isLast">, </span></span>
+            <a href="{{ repo.name }}" routerLink="{{ repo.name }}">{{
+              repo.name
+            }}</a>
+          </td>
+          <td>
+            <span *ngFor="let topic of repo.topics; last as isLast"
+              >{{ topic }}<span *ngIf="!isLast">, </span></span
+            >
           </td>
           <td>{{ repo.description }}</td>
-          <td><a href="{{ repo.url }}" target="_blank">{{ repo.url }}</a></td>
+          <td>
+            <a href="{{ repo.url }}" target="_blank">{{ repo.url }}</a>
+          </td>
         </tr>
       </tbody>
     </table>
 
-    <pagination-controls (pageChange)="currentPage = $event" maxSize="5" directionLinks="true" autoHide="true">
+    <pagination-controls
+      (pageChange)="currentPage = $event"
+      maxSize="5"
+      directionLinks="true"
+      autoHide="true"
+    >
     </pagination-controls>
 
     <table class="table table-striped">
@@ -81,7 +90,13 @@
       <tr>
         <td>Repositories per page</td>
         <td>
-          <input type="number" [(ngModel)]="itemsPerPage" name="itemsPerPage" min=1 pattern="^[0-9]$">
+          <input
+            type="number"
+            [(ngModel)]="itemsPerPage"
+            name="itemsPerPage"
+            min="1"
+            pattern="^[0-9]$"
+          />
         </td>
       </tr>
       <tr>

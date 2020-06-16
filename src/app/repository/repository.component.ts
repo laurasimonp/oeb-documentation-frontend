@@ -3,6 +3,7 @@ import { Component, OnInit } from "@angular/core";
 import { Repository } from "../model/Repository";
 
 import { RepositoryService } from "../services/repository.service";
+import { Topic } from "../model/Topic";
 
 @Component({
   selector: "app-repository",
@@ -10,22 +11,22 @@ import { RepositoryService } from "../services/repository.service";
   styleUrls: ["./repository.component.css"],
 })
 export class RepositoryComponent implements OnInit {
-  //attributes
+  // attributes
   topics: string[] = [];
   repos: Repository[] = [];
 
-  //filter properties
-  expanded: boolean = false;
+  // filter properties
+  expanded = false;
   topicFilter: string[] = [];
-  nameFilter: string = "";
-  selectedTopics: string[] = [];
+  nameFilter = "";
+  selectedTopics: Topic[] = [];
   filteredRepos: Repository[] = [];
 
-  //pagination properties
+  // pagination properties
   currentPage: number;
   itemsPerPage: number;
 
-  constructor(private repoService: RepositoryService) { }
+  constructor(private repoService: RepositoryService) {}
 
   ngOnInit(): void {
     this.repoService.getTopics().subscribe((data) => {
@@ -40,77 +41,36 @@ export class RepositoryComponent implements OnInit {
     this.currentPage = 1;
   }
 
-  showCheckboxes() {
-    let checkboxes = document.getElementById("checkboxes");
-    if (!this.expanded) {
-      checkboxes.style.display = "block";
-      this.expanded = true;
-    } else {
-      checkboxes.style.display = "none";
-      this.expanded = false;
-    }
-  }
+  getSelectedTopics() {
+    const filterTopics: string[] = [];
+    this.selectedTopics
+      ? this.selectedTopics.forEach((element) => {
+          filterTopics.push(element.url.toString());
+        })
+      : "";
 
-  getSelectedTopics($event): string[] {
-    this.selectedTopics = this.topicFilter;
-    console.log(this.topicFilter);
-    return this.selectedTopics;
-  }
-
-  filterRepos(topicsArray: string[]) {
-    topicsArray = this.getSelectedTopics(Event);
-    this.repoService.getFilteredRepos(topicsArray).subscribe((data) => {
+    this.repoService.getFilteredRepos(filterTopics).subscribe((data) => {
       this.filteredRepos = data;
     });
   }
 
   filter() {
-    this.filteredRepos = this.repos.filter(
-      repository => {
-        let nameValid: boolean = false;
+    this.filteredRepos = this.repos.filter((repository) => {
+      let nameValid = false;
 
-        if (this.nameFilter && this.nameFilter != "") {
-          if (repository.name.toLowerCase().indexOf
-            (this.nameFilter.toLowerCase()) != -1) {
-            nameValid = true;
-          }
-        } else {
+      if (this.nameFilter && this.nameFilter != "") {
+        if (
+          repository.name
+            .toLowerCase()
+            .indexOf(this.nameFilter.toLowerCase()) != -1
+        ) {
           nameValid = true;
         }
-
-        return nameValid;
-      })
-  }
-
-  /*filter2(): Repository[] {
-    for (let topic of this.topics) {
-      for (let repo of this.repos) {
-        for (let topicRepo of repo.topics) {
-          if (topic.toLowerCase() == topicRepo.toLowerCase()) {
-            this.filteredRepos = this.repos;
-          }
-        }
-      }
-    }
-    return this.filteredRepos;
-  }
-
-  filter3() {
-    this.filteredRepos = this.repos.filter((repo) => {
-      let topicValid: boolean = false;
-      for (let topic of repo.topics) {
-        if (this.topicFilter) {
-          if (
-            topic.toLowerCase().indexOf(this.topicFilter.toLowerCase()) != -1
-          ) {
-            topicValid = true;
-          }
-        } else {
-          topicValid = true;
-        }
+      } else {
+        nameValid = true;
       }
 
-      return topicValid;
+      return nameValid;
     });
-  }*/
+  }
 }
