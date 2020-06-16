@@ -17,6 +17,7 @@ import { PageNotFoundComponent } from "./page-not-found/page-not-found.component
 import { MarkedPipe } from "./marked.pipe";
 import { TopMenuComponent } from "./top-menu/top-menu.component";
 import { NgSelectModule } from "@ng-select/ng-select";
+import { APIsComponent } from './apis/apis.component';
 
 @NgModule({
   imports: [
@@ -38,8 +39,9 @@ import { NgSelectModule } from "@ng-select/ng-select";
     PageNotFoundComponent,
     MarkedPipe,
     TopMenuComponent,
+    APIsComponent,
   ],
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

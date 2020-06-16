@@ -17,8 +17,8 @@ export class TopMenuComponent implements OnInit {
    * Navigation links and labels for the menu on the left (LOGO)
    */
   public dashboardLink = {
-    label: "Dashboard",
-    path: "dashboard"
+    label: "OpenEBench",
+    path: "oeb"
   };
 
   /**
@@ -48,6 +48,10 @@ export class TopMenuComponent implements OnInit {
         label: "Repositories",
         path: "/repositories"
       },
+      {
+        label: "APIs",
+        path: "/apis"
+      }
     ];
   }
 

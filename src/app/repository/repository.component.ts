@@ -16,8 +16,6 @@ export class RepositoryComponent implements OnInit {
   repos: Repository[] = [];
 
   // filter properties
-  expanded = false;
-  topicFilter: string[] = [];
   nameFilter = "";
   selectedTopics: Topic[] = [];
   filteredRepos: Repository[] = [];
@@ -26,7 +24,7 @@ export class RepositoryComponent implements OnInit {
   currentPage: number;
   itemsPerPage: number;
 
-  constructor(private repoService: RepositoryService) {}
+  constructor(private repoService: RepositoryService) { }
 
   ngOnInit(): void {
     this.repoService.getTopics().subscribe((data) => {
@@ -45,8 +43,8 @@ export class RepositoryComponent implements OnInit {
     const filterTopics: string[] = [];
     this.selectedTopics
       ? this.selectedTopics.forEach((element) => {
-          filterTopics.push(element.url.toString());
-        })
+        filterTopics.push(element.url.toString());
+      })
       : "";
 
     this.repoService.getFilteredRepos(filterTopics).subscribe((data) => {
@@ -59,11 +57,9 @@ export class RepositoryComponent implements OnInit {
       let nameValid = false;
 
       if (this.nameFilter && this.nameFilter != "") {
-        if (
-          repository.name
-            .toLowerCase()
-            .indexOf(this.nameFilter.toLowerCase()) != -1
-        ) {
+        if (repository.name
+          .toLowerCase()
+          .indexOf(this.nameFilter.toLowerCase()) != -1) {
           nameValid = true;
         }
       } else {
