@@ -21,7 +21,7 @@ export class RepositoryService {
   public filteredRepos: Observable<Repository[]>;
   public repo: Observable<Repository>;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getTopics(): Observable<string[]> {
     this.topics = this.http.get<string[]>(this.topicsUrl);
@@ -34,14 +34,12 @@ export class RepositoryService {
   }
 
   getFilteredRepos(topicsArray: string[]): Observable<Repository[]> {
-    //const topicsArray = ["elixir-spain", "backend"];
-
     const options = topicsArray
       ? {
-        params: new HttpParams({
-          fromObject: { t: topicsArray },
-        }),
-      }
+          params: new HttpParams({
+            fromObject: { t: topicsArray },
+          }),
+        }
       : {};
 
     this.filteredRepos = this.http.get<Repository[]>(this.reposUrl, options);
