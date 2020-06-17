@@ -55,15 +55,17 @@ export class RepositoryComponent implements OnInit {
   filter() {
     this.filteredRepos = this.repos.filter((repository) => {
       let nameValid = false;
-
-      if (this.nameFilter && this.nameFilter != "") {
-        if (repository.name
-          .toLowerCase()
-          .indexOf(this.nameFilter.toLowerCase()) != -1) {
+      for (let topic of repository.topics) {
+        if (repository.name.toLowerCase().indexOf(
+          this.nameFilter.toLowerCase()) != -1) {
+          nameValid = true;
+        } else if (repository.description.toLowerCase().indexOf(
+          this.nameFilter.toLowerCase()) != -1) {
+          nameValid = true;
+        } else if (topic.toLowerCase().indexOf(
+          this.nameFilter.toLowerCase()) != -1) {
           nameValid = true;
         }
-      } else {
-        nameValid = true;
       }
 
       return nameValid;
