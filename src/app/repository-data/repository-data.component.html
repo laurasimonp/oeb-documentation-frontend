@@ -1,23 +1,50 @@
-<div class="container" *ngIf="repo">
-  <h2>{{ repo.name }}</h2>
-  <a href="{{ repo.url }}" target="_blank">{{ repo.url }}</a>
-  <br><br><br>
-  <p><b>ID: </b>{{ repo.id }}</p>
-  <p>
-    <b>Topics: </b>
-    <span *ngFor="let topic of repo.topics; last as isLast">{{ topic }}<span *ngIf="!isLast">, </span></span>
-  </p>
-  <p *ngIf="repo.description"><b>Description: </b>{{ repo.description }}</p>
-  <p *ngIf="repo.contributors">
-    <b>Contributors: </b>
-    <span *ngFor="let cont of repo.contributors; last as isLast">{{ cont.login }}<span *ngIf="!isLast">, </span></span>
-  </p>
-  <p *ngIf="repo.languages">
-    <b>Languages: </b>
-    <span *ngFor="let language of repo.languages; last as isLast">{{ language }}<span *ngIf="!isLast">, </span></span>
-  </p>
-  <p *ngIf="repo.license"><b>License: </b>{{ repo.license }}</p>
+<div mat-dialog-content class="dialogContent" *ngIf="repo">
   <br>
-  <h5 *ngIf="repo.readme">README.md:</h5>
-  <p [innerHTML]="repo.readme | marked"></p>
+  <h1>{{ repo.name }}</h1>
+  <small><a href="{{ repo.url }}" target="_blank">{{ repo.url }}</a></small>
+  <br>
+  <mat-tab-group mat-align-tabs="start">
+
+    <mat-tab label="General Information">
+      <br>
+      <p>
+        <b>Topics: </b>
+        <span *ngFor="let topic of repo.topics; last as isLast">{{ topic }}<span *ngIf="!isLast">, </span></span>
+      </p>
+      <p *ngIf="repo.description"><b>Description: </b>{{ repo.description }}</p>
+      <p *ngIf="repo.contributors">
+        <b>Contributors: </b>
+        <a *ngFor="let cont of repo.contributors; last as isLast" href="{{ cont.url }}">{{ cont.login }}<span *ngIf="!isLast">, </span></a>
+      </p>
+      <p *ngIf="repo.languages">
+        <b>Languages: </b>
+        <span *ngFor="let language of repo.languages; last as isLast">{{ language }}<span *ngIf="!isLast">, </span></span>
+      </p>
+      <p *ngIf="repo.license"><b>License: </b>{{ repo.license }}</p>
+      <br>
+    </mat-tab>
+
+    <mat-tab label="Readme">
+      <br>
+      <p *ngIf="repo.readme">
+        <b>README.md: </b>
+      </p>
+      <p [innerHTML]="repo.readme | marked"></p>
+    </mat-tab>
+
+    <mat-tab label="Graphics">
+      <br>
+      <div class="ui-g">
+        <p-panel header="In how many repositories are the used topics." class=ui-g-6 ui-md-6>
+            <p-chart type="pie" [data]="differentTopics"></p-chart>
+        </p-panel>
+      </div>
+      <div id="venn"></div>
+    </mat-tab>
+
+  </mat-tab-group>
 </div>
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close>Close</button>
+</div>
+

@@ -26,3 +26,46 @@
 #checkboxes label {
   display: block;
 } */
+
+.mat-elevation-z8 {
+  background-color:rgba(6, 76, 97, 0.9);
+}
+
+.mat-elevation-z8 div {
+  color: white;
+}
+
+.mat-elevation-z8 div h2 {
+  opacity: .5;
+  color: black;
+}
+
+#select {
+  width: 80%;
+}
+
+.nameFilter {
+  margin-left: 2%; 
+  margin-bottom: 2.5%; 
+  width:15%
+}
+
+mat-grid-tile {
+  border: 1px solid black;
+}
+
+.divRepo {
+  margin: 8%; 
+  text-align: center;
+}
+
+.example-section {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  height: 60px;
+}
+
+.example-margin {
+  margin: 0 10px;
+}

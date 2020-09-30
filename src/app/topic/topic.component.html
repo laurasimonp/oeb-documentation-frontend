@@ -1,12 +1,19 @@
-<div class="container">
-    <table class="table table-striped">
-        <tr>
-            <th>Name</th>
-            <th>Description</th>
-        </tr>
-        <tr *ngFor="let topic of topics">
-            <td>{{ topic.name }}</td>
-            <td>{{ topic.description }}</td>
-        </tr>
-    </table>
-</div>
+
+    <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        <!-- Name -->
+        <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.name}} </mat-cell>
+        </ng-container>
+
+        <!-- Description -->
+        <ng-container matColumnDef="description">
+            <mat-header-cell *matHeaderCellDef> Description </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.description}} </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="['name', 'description']"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: ['name', 'description'];"></mat-row>
+    </mat-table>
+    <br>
+

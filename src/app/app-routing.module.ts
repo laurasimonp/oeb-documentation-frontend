@@ -16,7 +16,7 @@ const appRoutes: Routes = [
   { path: "technical", component: TechnicalComponent },
   { path: "topics", component: TopicComponent },
   { path: "repositories", component: RepositoryComponent },
-  { path: "repositories/:name", component: RepositoryDataComponent },
+  //{ path: "repositories/:name", component: RepositoryDataComponent },
   { path: "apis", component: APIsComponent },
   { path: "", redirectTo: "/oeb", pathMatch: "full" },
   { path: "**", component: PageNotFoundComponent },

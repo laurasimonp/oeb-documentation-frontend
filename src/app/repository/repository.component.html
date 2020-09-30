@@ -1,5 +1,4 @@
-<div class="container">
-  <div class="container">
+<!--   <div class="container">
     <div class="row">
       <div class="col">
         <ng-select [items]="topics" [multiple]="true" [closeOnSelect]="false" [hideSelected]="true" bindLabel="name"
@@ -13,54 +12,48 @@
       </div>
     </div>
   </div>
-  <br><br>
+  <br><br> -->
+  <div>
+    <mat-form-field appearance="fill" id="select">
+      <mat-label>Select topics</mat-label>
+      <mat-select (selectionChange)="getSelectedTopics()" *ngIf="labelPosition === 'inclusive'" [multiple]="true" bindLabel="name" placeholder="Select topics" [(ngModel)]="selectedTopics" name="name">
+          <mat-option *ngFor="let topic of topics" [value]="topic.name"> {{topic.name}}</mat-option>
+      </mat-select>
+      <mat-select (selectionChange)="getSelectedTopics()" *ngIf="labelPosition === 'exclusive'" [multiple]="true" bindLabel="name" placeholder="Select topics" [(ngModel)]="selectedTopics" name="name">
+        <mat-option *ngFor="let topic of topics" [value]="topic.name"> {{topic.name}} </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <input class="nameFilter" matInput type="text" [(ngModel)]="nameFilter" name="nameFilter" (ngModelChange)="filter()" placeholder="Search by term">
+    <section class="example-section">
+      <mat-radio-group (change)="getSelectedTopics()" [(ngModel)]="labelPosition">
+        <mat-radio-button class="example-margin" value="inclusive"> Show all the topics that have SOME of the options selected.</mat-radio-button>
+        <mat-radio-button class="example-margin" value="exclusive">Show all the topics that have ALL the options selected.</mat-radio-button>
+      </mat-radio-group>
+    </section>
+  </div>
+  <br>
 
-  <form #reposManagementForm="ngForm" novalidate>
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Topics</th>
-          <th>Description</th>
-          <th>Website</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let repo of filteredRepos | paginate: {
-                    itemsPerPage: itemsPerPage,
-                    currentPage: currentPage}">
-          <td>
-            <a href="{{ repo.name }}" routerLink="{{ repo.name }}">{{ repo.name }}</a>
-          </td>
-          <td>
-            <span *ngFor="let topic of repo.topics; last as isLast">{{ topic }}<span *ngIf="!isLast">, </span></span>
-          </td>
-          <td>{{ repo.description }}</td>
-          <td>
-            <a href="{{ repo.url }}" target="_blank">{{ repo.url }}</a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-
-    <pagination-controls (pageChange)="currentPage = $event" maxSize="5" directionLinks="true" autoHide="true">
-    </pagination-controls>
-
-    <table class="table table-striped">
-      <tr>
-        <td>Current Page</td>
-        <td>{{ currentPage }}</td>
-      </tr>
-      <tr>
-        <td>Repositories per page</td>
-        <td>
-          <input type="number" [(ngModel)]="itemsPerPage" name="itemsPerPage" min="1" pattern="^[0-9]$">
-        </td>
-      </tr>
-      <tr>
-        <td>Repositories found</td>
-        <td>{{ filteredRepos.length }}</td>
-      </tr>
-    </table>
-  </form>
-</div>
+  <div fxFill fxLayout="column" fxLayoutAlign="space-between">
+    <div fxLayout="row wrap">
+      <mat-grid-list cols="4" rowHeight="2:1" gutterSize="7px" >
+        <ng-container *ngFor="let repo of allRepos; index as i">
+          <mat-grid-tile ng-app [queryParams]="{dialog: true}" id="{{ i }}" [ngClass]="{'mat-elevation-z8': id === i, '': id != i }" (mouseenter)="addClass(id=i, repo)" (mouseleave)="removeClass(id=i)" 
+          (click)="repositoryClick(id=i, repo)">
+            <div *ngIf="identifier != i" id="div_{{i}}" class="divRepo">
+              <h2>{{repo.name}}</h2>
+            </div>
+            <div *ngIf="isShown && identifier == i" id="information_{{i}}" class="divRepo">
+              <p><b>Topics: </b>{{repo.topics}}</p>
+            </div>
+          </mat-grid-tile>
+        </ng-container>
+      </mat-grid-list>
+    </div>
+  
+    <mat-paginator [length]="filteredRepos.length"
+      [pageSize]="size"
+      [pageIndex]="page"
+      [pageSizeOptions]="[4, 8, 12]"
+      (page)="getData($event, filteredRepos)">
+    </mat-paginator>
+  </div>

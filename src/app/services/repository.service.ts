@@ -18,26 +18,36 @@ export class RepositoryService {
   private repoUrl = environment.REPOSITORY;
   public topics: Observable<string[]>;
   public repos: Observable<Repository[]>;
+  public tmpRepos: Observable<Repository[]>;
   public filteredRepos: Observable<Repository[]>;
   public repo: Observable<Repository>;
+  findRepo: boolean;
+  labelPos = "all";
 
   constructor(private http: HttpClient) { }
 
   getTopics(): Observable<string[]> {
-    this.topics = this.http.get<string[]>(this.topicsUrl);
+    const options =
+      {
+        params: new HttpParams({
+          fromObject: { s: this.labelPos },
+        }),
+      };
+    this.topics = this.http.get<string[]>(this.topicsUrl, options);
     return this.topics;
   }
 
   getRepos(): Observable<Repository[]> {
     this.repos = this.http.get<Repository[]>(this.reposUrl);
+    console.log(this.repos);
     return this.repos;
   }
 
-  getFilteredRepos(topicsArray: string[]): Observable<Repository[]> {
+  getFilteredRepos(topicsArray: string[], labelPosition: string): Observable<Repository[]> {
     const options = topicsArray
       ? {
         params: new HttpParams({
-          fromObject: { t: topicsArray },
+          fromObject: { t: topicsArray, s: labelPosition },
         }),
       }
       : {};
